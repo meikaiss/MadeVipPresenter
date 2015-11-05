@@ -15,13 +15,14 @@ public class LoginApiImpl extends BaesApi implements LoginApi {
 
 
     @Override
-    public void login()  throws ApiException, HttpException, InternalException {
+    public void login() throws ApiException, HttpException, InternalException {
 
         ApiResponse apiResponse = httpGet(ApiUrlConstant.LOGIN_IN) ;
     }
 
     @Override
-    public void logOut() {
+    public void logOut() throws ApiException, HttpException, InternalException {
 
+        ApiResponse apiResponse = httpGet(ApiUrlConstant.LOGIN_IN) ;
     }
 }
