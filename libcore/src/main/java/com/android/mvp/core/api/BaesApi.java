@@ -25,7 +25,7 @@ public abstract class BaesApi {
 
 
     protected ApiResponse httpGet(String url) throws ApiException, HttpException, InternalException {
-
+        url = buildFullUrl(url);
 
         ApiResponse response = new ApiResponse(null);
 
