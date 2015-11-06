@@ -5,7 +5,7 @@ package com.android.mvp.api;
  */
 public class ApiUrlConstant {
 
-    public static final String LOGIN_IN = "";
+    public static final String LOGIN_IN = "uriPath/subPath1/";
 
-    public static final String LOGIN_OUT = "";
+    public static final String LOGIN_OUT = "uriPath/subPath2/";
 }

@@ -1,11 +1,14 @@
 package com.android.mvp.core.api;
 
+import android.widget.Toast;
+
 import com.alibaba.fastjson.JSONObject;
 import com.android.mvp.core.exception.ApiException;
 import com.android.mvp.core.exception.HttpException;
 import com.android.mvp.core.exception.InternalException;
 import com.android.mvp.core.http.MvpNameValuePair;
 import com.android.mvp.core.utils.MvpUrlParamUtils;
+import com.android.mvp.core.utils.MvpUtils;
 
 import java.util.List;
 import java.util.Map;
@@ -36,6 +39,8 @@ public abstract class BaseApi {
 
     protected ApiResponse httpPost(String url, List<MvpNameValuePair> pairList) throws ApiException, HttpException, InternalException {
         url = buildFullUrl(url);
+
+        MvpUtils.showToastInThread(url);
 
         String jsonString = "{\"data\":true,\"errorCode\":0,\"message\":0,\"success\":true}";
 

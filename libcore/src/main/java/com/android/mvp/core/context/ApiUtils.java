@@ -38,7 +38,7 @@ public class ApiUtils {
                         @Override
                         public void run() {
                             try {
-                                apiContext.onApiSuccess(result);   // ???? 这里为什么会 发生 弱引用 丢失
+                                apiContext.onApiSuccess(result);
                             } catch (WeakRefLostException weakRefLostException) {
                                 weakRefLostException.printStackTrace();
                             }
