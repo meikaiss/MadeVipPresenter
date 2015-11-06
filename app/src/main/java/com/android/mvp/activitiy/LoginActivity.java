@@ -1,15 +1,29 @@
-package com.android.mvp;
+package com.android.mvp.activitiy;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.EditText;
 
-public class MainActivity extends AppCompatActivity {
+import com.android.mvp.R;
+import com.android.mvp.api.dto.LoginDto;
+import com.android.mvp.core.utils.MvpUtils;
+import com.android.mvp.presenter.LoginPresenter;
+import com.android.mvp.presenter.impl.LoginPresenterImpl;
+import com.android.mvp.uiinterface.LoginUI;
+
+public class LoginActivity extends AppCompatActivity implements LoginUI, View.OnClickListener {
+
+    private LoginPresenter loginPresenter;
+
+    private EditText edtUserName;
+    private EditText edtUserPwd;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +40,11 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+
+        edtUserName = (EditText) findViewById(R.id.edt_user_name);
+        edtUserPwd = (EditText) findViewById(R.id.edt_user_pwd);
+
+        loginPresenter = new LoginPresenterImpl(this, this);
     }
 
     @Override
@@ -48,5 +67,28 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void loginSuccess() {
+        MvpUtils.showToast("调用成功");
+
+    }
+
+    @Override
+    public void loginFailed() {
+
+        MvpUtils.showToast("调用失败");
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.btn_login:
+                loginPresenter.login(new LoginDto(edtUserName.getText().toString(), edtUserPwd.getText().toString()));
+                break;
+            default:
+                break;
+        }
     }
 }

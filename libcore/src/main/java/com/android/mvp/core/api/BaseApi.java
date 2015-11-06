@@ -1,19 +1,19 @@
 package com.android.mvp.core.api;
 
+import com.alibaba.fastjson.JSONObject;
 import com.android.mvp.core.exception.ApiException;
 import com.android.mvp.core.exception.HttpException;
 import com.android.mvp.core.exception.InternalException;
-import com.android.mvp.core.utils.MvpUtils;
+import com.android.mvp.core.http.MvpNameValuePair;
+import com.android.mvp.core.utils.MvpUrlParamUtils;
 
-import java.util.HashMap;
-import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 /**
  * Created by meikai on 15/11/4.
  */
-public abstract class BaesApi {
+public abstract class BaseApi {
 
     protected abstract String getApiHost();
 
@@ -32,25 +32,25 @@ public abstract class BaesApi {
         return  response;
     }
 
-    protected String buildFullUrl(String url){
-        StringBuilder sb = new StringBuilder(url);
-
-        HashMap paramHashMap = new HashMap();
-        paramHashMap.put("_r", UUID.randomUUID().toString().replaceAll("-", ""));
-
-        Map extraMap = this.getExtraParams();
-        if(MvpUtils.isNotEmpty(extraMap)){
-            Iterator iterator = extraMap.keySet().iterator();
-            while (iterator.hasNext()){
-                Map.Entry entry = (Map.Entry) iterator.next();
-                paramHashMap.put(entry.getKey(), entry.getValue());
-            }
-        }
+    protected ApiResponse httpPost(String url, List<MvpNameValuePair> pairList) throws ApiException, HttpException, InternalException {
+        url = buildFullUrl(url);
 
 
+        JSONObject httpJsonObject = JSONObject.parseObject("{\"data\":false,\"errorCode\":0,\"message\":0,\"success\":false}");
 
-        return this.getApiHost() + sb.toString();
+        ApiResponse response = new ApiResponse(httpJsonObject);
+
+        return  response;
     }
+
+
+
+    protected String buildFullUrl(String url){
+
+        return this.getApiHost() + MvpUrlParamUtils.buildUrlParams(url, this.getExtraParams(), getSignKey());
+    }
+
+
 
     public static enum HttpMethod{
         Post,
@@ -60,4 +60,5 @@ public abstract class BaesApi {
 
         }
     }
+
 }

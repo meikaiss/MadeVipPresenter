@@ -23,14 +23,14 @@ public abstract class MvpBaseApiContext<A, T> extends BaseApiContext<A, T> {
 
     @Override
     public void onApiFailure(Exception exception) {
-        if(exception instanceof HttpException){
+        if (exception instanceof HttpException) {
             MvpCore.postOnUiThread(new Runnable() {
                 @Override
                 public void run() {
                     MvpUtils.showToast("网络错误，请检查网络");
                 }
             });
-        }else if(exception instanceof ApiException){
+        } else if (exception instanceof ApiException) {
             final ApiException apiException = (ApiException) exception;
             MvpCore.postOnUiThread(new Runnable() {
                 @Override

@@ -1,1 +1,1 @@
-include ':app', ':libbapi', ':libcore', ':libpresenter'
+include ':app', ':libapi', ':libcore', ':libpresenter'
