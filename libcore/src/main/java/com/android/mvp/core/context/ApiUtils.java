@@ -48,7 +48,7 @@ public class ApiUtils {
 
                 } catch (final Exception e) {
                     e.printStackTrace();
-                    if (e instanceof WeakRefLostException) {
+                    if (!(e instanceof WeakRefLostException)) {
                         MvpCore.postOnUiThread(new Runnable() {
                             @Override
                             public void run() {
