@@ -16,6 +16,15 @@ public class MvpUtils {
         Toast.makeText(MvpCore.getApplication(), msg, Toast.LENGTH_SHORT).show();
     }
 
+    public static void showToastInThread(final String msg){
+        MvpCore.postOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                showToast(msg);
+            }
+        });
+    }
+
     public static boolean isEmpty(String s) {
         return s == null || s.trim().length() == 0;
     }
