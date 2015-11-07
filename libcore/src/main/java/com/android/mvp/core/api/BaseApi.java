@@ -29,12 +29,47 @@ public abstract class BaseApi {
 
     protected ApiResponse httpGet(String url) throws ApiException, HttpException, InternalException {
         url = buildFullUrl(url);
+        MvpUtils.showToastInThread(url);
 
-        ApiResponse response = new ApiResponse(null);
+        try {
+            String jsonString = MvpHttpClient.getInstance().httpGet(url);
+//            jsonString = "{\"data\":true,\"errorCode\":0,\"message\":0,\"success\":true}";
 
-        handlerResponse(response);
+            JSONObject httpJsonObject = JSONObject.parseObject(jsonString);
+            ApiResponse response = new ApiResponse(httpJsonObject);
+            handlerResponse(response);
 
-        return  response;
+            return  response;
+        } catch (IOException e) {
+            throw new HttpException("网络信号不太好");
+        } catch (ApiException apiException){
+            throw apiException;
+        } catch (Exception exception){
+            throw new InternalException(exception);
+        }
+    }
+
+    protected ApiResponse httpPost(String url, byte[] body) throws ApiException, HttpException, InternalException {
+
+        url = buildFullUrl(url);
+        MvpUtils.showToastInThread(url);
+
+        try {
+            String jsonString = MvpHttpClient.getInstance().httpPostBody(url, body);
+
+            JSONObject httpJsonObject = JSONObject.parseObject(jsonString);
+            ApiResponse response = new ApiResponse(httpJsonObject);
+            handlerResponse(response);
+
+            return  response;
+        } catch (IOException e) {
+            throw new HttpException("网络信号不太好");
+        } catch (ApiException apiException){
+            throw apiException;
+        } catch (Exception exception){
+            throw new InternalException(exception);
+        }
+
     }
 
     protected ApiResponse httpPost(String url, List<MvpNameValuePair> pairList) throws ApiException, HttpException, InternalException {
@@ -43,7 +78,7 @@ public abstract class BaseApi {
         MvpUtils.showToastInThread(url);
 
         try {
-            String jsonString = MvpHttpClient.getInstance().httpGet(url);
+            String jsonString = MvpHttpClient.getInstance().httpPost(url, pairList);
 //            jsonString = "{\"data\":true,\"errorCode\":0,\"message\":0,\"success\":true}";
 
             JSONObject httpJsonObject = JSONObject.parseObject(jsonString);

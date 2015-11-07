@@ -4,6 +4,8 @@ import android.widget.Toast;
 
 import com.android.mvp.core.MvpCore;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.Collection;
 import java.util.Map;
 
@@ -48,6 +50,19 @@ public class MvpUtils {
 
     public static boolean isNotEmpty(Map<?, ?> map) {
         return !isEmpty(map);
+    }
+
+    public static String safeURLEncode(String s, String encoding) {
+        if(s == null) {
+            return "";
+        } else {
+            try {
+                return URLEncoder.encode(s, encoding);
+            } catch (UnsupportedEncodingException var3) {
+                var3.printStackTrace();
+                return s;
+            }
+        }
     }
 
 }
