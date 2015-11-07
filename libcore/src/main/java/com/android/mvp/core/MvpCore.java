@@ -55,10 +55,8 @@ public class MvpCore {
     }
 
     public static Activity getCurrentActivity() {
-        return currentActivity != null?(Activity)currentActivity.get():null;
+        return currentActivity != null ? (Activity) currentActivity.get() : null;
     }
-
-
 
 
 }

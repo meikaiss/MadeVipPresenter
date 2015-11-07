@@ -4,10 +4,12 @@ import com.alibaba.fastjson.JSONObject;
 import com.android.mvp.core.exception.ApiException;
 import com.android.mvp.core.exception.HttpException;
 import com.android.mvp.core.exception.InternalException;
+import com.android.mvp.core.http.MvpHttpClient;
 import com.android.mvp.core.http.MvpNameValuePair;
 import com.android.mvp.core.utils.MvpUrlParamUtils;
 import com.android.mvp.core.utils.MvpUtils;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -36,19 +38,27 @@ public abstract class BaseApi {
     }
 
     protected ApiResponse httpPost(String url, List<MvpNameValuePair> pairList) throws ApiException, HttpException, InternalException {
-        url = buildFullUrl(url);
 
+        url = buildFullUrl(url);
         MvpUtils.showToastInThread(url);
 
-        String jsonString = "{\"data\":true,\"errorCode\":0,\"message\":0,\"success\":true}";
+        try {
+            String jsonString = MvpHttpClient.getInstance().httpGet(url);
+//            jsonString = "{\"data\":true,\"errorCode\":0,\"message\":0,\"success\":true}";
 
-        JSONObject httpJsonObject = JSONObject.parseObject(jsonString);
+            JSONObject httpJsonObject = JSONObject.parseObject(jsonString);
+            ApiResponse response = new ApiResponse(httpJsonObject);
+            handlerResponse(response);
 
-        ApiResponse response = new ApiResponse(httpJsonObject);
+            return  response;
+        } catch (IOException e) {
+            throw new HttpException("网络信号不太好");
+        } catch (ApiException apiException){
+            throw apiException;
+        } catch (Exception exception){
+            throw new InternalException(exception);
+        }
 
-        handlerResponse(response);
-
-        return  response;
     }
 
 
