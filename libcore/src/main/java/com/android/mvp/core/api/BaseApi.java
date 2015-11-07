@@ -1,7 +1,5 @@
 package com.android.mvp.core.api;
 
-import android.widget.Toast;
-
 import com.alibaba.fastjson.JSONObject;
 import com.android.mvp.core.exception.ApiException;
 import com.android.mvp.core.exception.HttpException;
