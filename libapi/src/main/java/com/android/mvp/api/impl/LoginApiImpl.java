@@ -34,7 +34,7 @@ public class LoginApiImpl extends MvpBaseApi implements LoginApi {
     @Override
     public boolean logout() throws ApiException, HttpException, InternalException {
 
-        ApiResponse apiResponse = httpPost(ApiUrlConstant.LOGIN_OUT, null);
+        ApiResponse apiResponse = httpPost(ApiUrlConstant.LOGIN_OUT);
 
         return apiResponse.getJsonObject().getBoolean("data");
     }

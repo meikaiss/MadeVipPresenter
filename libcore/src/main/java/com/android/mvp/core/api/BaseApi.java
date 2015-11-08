@@ -72,6 +72,12 @@ public abstract class BaseApi {
 
     }
 
+    protected ApiResponse httpPost(String url) throws ApiException, HttpException, InternalException {
+
+        List<MvpNameValuePair> pairList = null;
+        return httpPost(url, pairList);
+    }
+
     protected ApiResponse httpPost(String url, List<MvpNameValuePair> pairList) throws ApiException, HttpException, InternalException {
 
         url = buildFullUrl(url);
@@ -79,7 +85,7 @@ public abstract class BaseApi {
 
         try {
             String jsonString = MvpHttpClient.getInstance().httpPost(url, pairList);
-//            jsonString = "{\"data\":true,\"errorCode\":0,\"message\":0,\"success\":true}";
+            jsonString = "{\"data\":true,\"errorCode\":0,\"message\":0,\"success\":true}";
 
             JSONObject httpJsonObject = JSONObject.parseObject(jsonString);
             ApiResponse response = new ApiResponse(httpJsonObject);
