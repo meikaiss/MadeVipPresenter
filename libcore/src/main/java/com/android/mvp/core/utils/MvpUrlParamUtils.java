@@ -47,6 +47,7 @@ public class MvpUrlParamUtils {
         Map<String, String> standardParamsMap = new HashMap<>();
 
         standardParamsMap.put("imei", "imei");
+        standardParamsMap.put("standardParams1", "standardParams1");
         //TODO
 
         return standardParamsMap;

@@ -59,4 +59,5 @@ public class InputMethodLinearLayout extends LinearLayout {
         void onSizeSmaller();
 
     }
+
 }
