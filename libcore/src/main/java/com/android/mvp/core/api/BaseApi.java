@@ -117,7 +117,7 @@ public abstract class BaseApi {
 
 
 
-    public static enum HttpMethod{
+    public enum HttpMethod{
         Post,
         Get;
 

@@ -107,7 +107,6 @@ public class MvpHttpClient {
         builder.header("User-Platform", "Android");
         builder.header("User-AppName", MvpUtils.safeURLEncode("your app's name", "UTF-8"));
         builder.header("Accept-Encoding", "gzip");
-        builder.addHeader("Accept-Encoding", "tnpn4");
     }
 
     public String httpPostBody(String url, byte[] body) throws IOException {
