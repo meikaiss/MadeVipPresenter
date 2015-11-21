@@ -48,7 +48,7 @@ public class ApiUtils {
 
                 } catch (final Exception e) {
                     e.printStackTrace();
-                    if (!(e instanceof WeakRefLostException)) {
+                    if (!(e instanceof WeakRefLostException) && !(e instanceof ActivityFinishException)) {
                         MvpCore.postOnUiThread(new Runnable() {
                             @Override
                             public void run() {
@@ -65,9 +65,9 @@ public class ApiUtils {
                     MvpCore.postOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            try{
+                            try {
                                 apiContext.onApiFinished();
-                            }catch (WeakRefLostException e){
+                            } catch (WeakRefLostException e) {
                                 e.printStackTrace();
                             }
                         }
