@@ -6,12 +6,16 @@
     android:fitsSystemWindows="true"
     tools:context=".MainActivity">
 
-
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="onClick"
         android:text="show一个dialog后立即finish" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="在TextView里有中文混输还有这样的bug"/>
 
 
 </android.support.design.widget.CoordinatorLayout>

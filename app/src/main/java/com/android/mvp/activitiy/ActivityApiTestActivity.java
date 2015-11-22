@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.TextView;
 
 import com.android.mvp.R;
 import com.android.mvp.core.context.BaseActivityApiContext;
@@ -20,11 +21,6 @@ public class ActivityApiTestActivity extends AppCompatActivity implements View.O
         setContentView(R.layout.activity_act_api_test);
 
 
-        Dialog dialog = new Dialog(this);
-        dialog.setTitle("这里测试");
-        dialog.show();
-
-        finish();
     }
 
     @Override
