@@ -1,1 +1,1 @@
-include ':app', ':libapi', ':libcore', ':libpresenter'
+include ':app', ':libapicore', ':libnetcore', ':libpresenter', ':libapi2'

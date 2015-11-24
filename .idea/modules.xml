@@ -4,8 +4,9 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/MVP.iml" filepath="$PROJECT_DIR$/MVP.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/libapi/libapi.iml" filepath="$PROJECT_DIR$/libapi/libapi.iml" />
-      <module fileurl="file://$PROJECT_DIR$/libcore/libcore.iml" filepath="$PROJECT_DIR$/libcore/libcore.iml" />
+      <module fileurl="file://$PROJECT_DIR$/libapi2/libapi2.iml" filepath="$PROJECT_DIR$/libapi2/libapi2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/libapicore/libapicore.iml" filepath="$PROJECT_DIR$/libapicore/libapicore.iml" />
+      <module fileurl="file://$PROJECT_DIR$/libnetcore/libnetcore.iml" filepath="$PROJECT_DIR$/libnetcore/libnetcore.iml" />
       <module fileurl="file://$PROJECT_DIR$/libpresenter/libpresenter.iml" filepath="$PROJECT_DIR$/libpresenter/libpresenter.iml" />
     </modules>
   </component>

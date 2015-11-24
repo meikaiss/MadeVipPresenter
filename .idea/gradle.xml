@@ -10,8 +10,9 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
-            <option value="$PROJECT_DIR$/libapi" />
-            <option value="$PROJECT_DIR$/libcore" />
+            <option value="$PROJECT_DIR$/libapi2" />
+            <option value="$PROJECT_DIR$/libapicore" />
+            <option value="$PROJECT_DIR$/libnetcore" />
             <option value="$PROJECT_DIR$/libpresenter" />
           </set>
         </option>

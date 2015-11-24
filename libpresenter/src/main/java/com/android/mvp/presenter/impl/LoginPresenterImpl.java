@@ -1,12 +1,11 @@
 package com.android.mvp.presenter.impl;
 
-import android.app.Activity;
+import android.content.Context;
 
-import com.android.mvp.api.LoginApi;
-import com.android.mvp.api.dto.LoginDto;
-import com.android.mvp.api.impl.LoginApiImpl;
+import com.android.mvp.api.context.MvpBaseApiContext;
+import com.android.mvp.api2.LoginApi;
+import com.android.mvp.api2.po.UserInfo;
 import com.android.mvp.core.context.ApiUtils;
-import com.android.mvp.core.context.BaseApiContext;
 import com.android.mvp.presenter.LoginPresenter;
 import com.android.mvp.uiinterface.LoginUI;
 
@@ -15,59 +14,55 @@ import com.android.mvp.uiinterface.LoginUI;
  */
 public class LoginPresenterImpl implements LoginPresenter {
 
-    private Activity activity;
+    private Context context;
     private LoginUI loginUI;
 
-
-    public LoginPresenterImpl(Activity activity, LoginUI loginUI) {
-        this.activity = activity;
+    public LoginPresenterImpl(Context context, LoginUI loginUI) {
+        this.context = context;
         this.loginUI = loginUI;
     }
 
     @Override
-    public void login(LoginDto loginDto) {
-
-        ApiUtils.apiRequest(new LoginApiContext(activity, loginUI, loginDto));
-
+    public void login(String userName, String userPwd) {
+        ApiUtils.apiRequest(new LoginApiContext(this, userName, userPwd));
     }
 
-    private static class LoginApiContext extends BaseApiContext<Activity, Boolean>{
 
-        private LoginUI loginUI;
+    private static final class LoginApiContext extends MvpBaseApiContext<LoginPresenterImpl, UserInfo> {
+
         private LoginApi loginApi;
-        private LoginDto loginDto;
+        private String userName;
+        private String userPwd;
 
-        public LoginApiContext(Activity activity, LoginUI loginUI, LoginDto loginDto) {
-            super(activity);
-            this.loginUI = loginUI;
-            this.loginDto = loginDto;
-            this.loginApi = new LoginApiImpl();
+        public LoginApiContext(LoginPresenterImpl loginPresenter, String userName, String userPwd) {
+            super(loginPresenter);
+            this.userName = userName;
+            this.userPwd = userPwd;
+            this.loginApi = new LoginApi(userName, userPwd);
         }
 
         @Override
-        public Boolean request() throws Exception {
-            return loginApi.login(this.loginDto);
+        public UserInfo request() throws Exception {
+            return this.loginApi.request();
         }
 
         @Override
-        public void onApiSuccess(Boolean boolBoolean) {
-            Activity activity = get();
-            if(activity != null){
-                if(boolBoolean)
-                    loginUI.loginSuccess();
-                else
-                    loginUI.loginFailed();
+        public void onApiSuccess(UserInfo var1) {
+            LoginPresenterImpl loginPresenter = get();
+            if (loginPresenter != null) {
+                loginPresenter.loginUI.loginSuccess(var1);
             }
         }
 
         @Override
         public void onApiFailure(Exception exception) {
             super.onApiFailure(exception);
-            Activity activity = get();
-            if(activity != null){
-                loginUI.loginFailed();
+            LoginPresenterImpl loginPresenter = get();
+            if (loginPresenter != null) {
+                loginPresenter.loginUI.loginFailed();
             }
         }
+
     }
 
 }

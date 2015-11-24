@@ -3,21 +3,21 @@ package com.android.mvp.activitiy;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.android.mvp.R;
-import com.android.mvp.api.dto.LoginDto;
-import com.android.mvp.core.utils.MvpUtils;
+import com.android.mvp.api2.po.UserInfo;
+import com.android.mvp.base.MvpBaseActivity;
 import com.android.mvp.presenter.LoginPresenter;
 import com.android.mvp.presenter.impl.LoginPresenterImpl;
 import com.android.mvp.uiinterface.LoginUI;
 
-public class LoginActivity extends AppCompatActivity implements LoginUI, View.OnClickListener {
+public class LoginActivity extends MvpBaseActivity implements LoginUI, View.OnClickListener {
 
     private LoginPresenter loginPresenter;
 
@@ -65,25 +65,25 @@ public class LoginActivity extends AppCompatActivity implements LoginUI, View.On
     }
 
     @Override
-    public void loginSuccess() {
-        MvpUtils.showToast("调用成功");
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.btn_login:
+                loginPresenter.login(edtUserName.getText().toString(), edtUserPwd.getText().toString());
+                break;
+            default:
+                break;
+        }
+    }
+
+    @Override
+    public void loginSuccess(UserInfo userInfo) {
+        Toast.makeText(getContext(), "登录成功", Toast.LENGTH_LONG).show();
 
     }
 
     @Override
     public void loginFailed() {
+        Toast.makeText(getContext(), "登录失败", Toast.LENGTH_LONG).show();
 
-        MvpUtils.showToast("调用失败");
-    }
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.btn_login:
-                loginPresenter.login(new LoginDto(edtUserName.getText().toString(), edtUserPwd.getText().toString()));
-                break;
-            default:
-                break;
-        }
     }
 }
